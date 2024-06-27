@@ -19,21 +19,46 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
+    protected static ?string $navigationGroup = 'Employee Management';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('Relationships')
+                ->schema([Forms\Components\Select::make('country_id')
+                    ->relationship(name: 'country', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\Select::make('state_id')
+                    ->relationship(name: 'state', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),       
+                Forms\Components\Select::make('city_id')
+                    ->relationship(name: 'city', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\Select::make('department_id')
+                    ->relationship(name: 'department', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+            ])->columns(2),
                 Forms\Components\Section::make('User Name')
-                ->description('Put the user name deatils.')
-                ->schema([Forms\Components\TextInput::make('first_name')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\TextInput::make('last_name')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\TextInput::make('middle_name')
-                ->required()
-                ->maxLength(255),
+                    ->description('Put the user name details in.')
+                    ->schema([
+                Forms\Components\TextInput::make('first_name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('last_name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('middle_name')
+                    ->required()
+                    ->maxLength(255),
             ])->columns(3),
             Forms\Components\Section::make('User Address')
               ->schema([  

@@ -21,7 +21,7 @@ class CountryResource extends Resource
 
     protected static ?string $navigationLabel = 'Country';
 
-    protected static ?string $modelLabel = 'Employee Country';
+    protected static ?string $modelLabel = 'Employees Country';
 
     protected static ?string $navigationGroup = 'System Management';
 
@@ -31,7 +31,16 @@ class CountryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('code')
+                    ->required()
+                    ->maxLength(3),    
+                Forms\Components\TextInput::make('phonecode')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(5),    
             ]);
     }
 
