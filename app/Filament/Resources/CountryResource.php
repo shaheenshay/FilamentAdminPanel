@@ -48,7 +48,22 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phonecode')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),        
             ])
             ->filters([
                 //
