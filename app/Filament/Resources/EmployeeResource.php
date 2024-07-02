@@ -14,6 +14,7 @@ use Filament\Forms\Set;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
@@ -65,7 +66,7 @@ class EmployeeResource extends Resource
 
     public static function getNavigationBadgeColor(): string|array|null
     {
-        return static::getModel()::count()>15 ? 'warning' : 'success';
+        return static::getModel()::count() > 15 ? 'warning' : 'success';
     }
 
     public static function form(Form $form): Form
@@ -220,6 +221,11 @@ class EmployeeResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->successNotification(Notification::make()
+                        ->success()
+                        ->title('Employee deleted.')
+                        ->body('The Employee deleted successfully.'))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
